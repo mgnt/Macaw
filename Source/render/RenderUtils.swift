@@ -353,8 +353,11 @@ class RenderUtils {
                     }
 
                     // make sure the value under the root is positive
-                    let underroot = (rx * rx * ry * ry - rx * rx * y1_ * y1_ - ry * ry * x1_ * x1_)
+                    var underroot = (rx * rx * ry * ry - rx * rx * y1_ * y1_ - ry * ry * x1_ * x1_)
                         / (rx * rx * y1_ * y1_ + ry * ry * x1_ * x1_)
+                    if underroot == Double.infinity {
+                        underroot = Double.greatestFiniteMagnitude
+                    }
                     var bigRoot = (underroot > 0) ? sqrt(underroot) : 0
                     bigRoot = (bigRoot <= 1e-2) ? 0 : bigRoot
                     let coef: Double = (sweep != largeArc) ? 1 : -1
